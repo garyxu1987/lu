@@ -12,24 +12,24 @@
 		<module>lu-shopping</module>
 		<module>lu-user</module>
 		<module>lu-data</module>
+		<module>lu-core</module>
+		<module>lu-model</module>
 	</modules>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.0.2</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
 	<properties>
-		<version-lu>0.0.1-SNAPSHOT</version-lu>
+		<!-- for maven compiler plugin -->
+		<encoding-file>UTF-8</encoding-file>
+		<version-java-source>1.7</version-java-source>
+		<version-java-target>1.7</version-java-target>
+		<version-maven-compiler-plugin>2.3.2</version-maven-compiler-plugin>
+		<version-maven-source-plugin>2.1.1</version-maven-source-plugin>
+		<version-maven-jar-plugin>2.3.2</version-maven-jar-plugin>
+		<version-maven-war-plugin>2.1.1</version-maven-war-plugin>
+		<version-maven-install-plugin>2.3.1</version-maven-install-plugin>
+		<version-maven-deploy-plugin>2.7</version-maven-deploy-plugin>
+		<version-maven-surefire-plugin>2.17</version-maven-surefire-plugin>
+
+		<version-dubbo>2.8.3</version-dubbo>
 		<version-spring>4.1.6.RELEASE</version-spring>
 		<version-spring-data-mongodb>1.7.0.RELEASE</version-spring-data-mongodb>
 		<version-commons-lang>3.3.2</version-commons-lang>
@@ -39,46 +39,113 @@
 		<version-log4j>1.2.17</version-log4j>
 		<version-janino>2.5.10</version-janino>
 		<version-mongodb>3.0.0-rc1</version-mongodb>
+		<version-zookeeper>3.4.5</version-zookeeper>
+		<version-zkclient>0.4</version-zkclient>
 	</properties>
+
+	<build>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${version-java-source}</source>
+					<target>${version-java-target}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<addMavenDescriptor>true</addMavenDescriptor>
+						<index>true</index>
+						<manifest>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>${skip_maven_deploy}</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${version-maven-jar-plugin}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${version-maven-war-plugin}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>${version-maven-install-plugin}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>${version-maven-deploy-plugin}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${version-maven-compiler-plugin}</version>
+					<configuration>
+						<source>${version-java-source}</source>
+						<target>${version-java-target}</target>
+						<encoding>${encoding-file}</encoding>
+					</configuration>
+				</plugin>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. > <plugin> <groupId>org.eclipse.m2e</groupId> 
+					<artifactId>lifecycle-mapping</artifactId> <version>1.0.0</version> <configuration> 
+					<lifecycleMappingMetadata> <pluginExecutions> <pluginExecution> <pluginExecutionFilter> 
+					<groupId> org.apache.maven.plugins </groupId> <artifactId> maven-dependency-plugin 
+					</artifactId> <versionRange> [2.1,) </versionRange> <goals> <goal>unpack</goal> 
+					</goals> </pluginExecutionFilter> <action> <ignore></ignore> </action> </pluginExecution> 
+					</pluginExecutions> </lifecycleMappingMetadata> </configuration> </plugin -->
+			</plugins>
+		</pluginManagement>
+	</build>
 
 	<dependencyManagement>
 		<dependencies>
 			<!-- Spring related start -->
 			<dependency>
 				<groupId>org.springframework</groupId>
-				<artifactId>spring-context</artifactId>
+				<artifactId>spring-framework-bom</artifactId>
 				<version>${version-spring}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-beans</artifactId>
-				<version>${version-spring}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-tx</artifactId>
-				<version>${version-spring}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-core</artifactId>
-				<version>${version-spring}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-aop</artifactId>
-				<version>${version-spring}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-expression</artifactId>
-				<version>${version-spring}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-test</artifactId>
-				<version>${version-spring}</version>
-			</dependency>
+			<!--dependency> <groupId>org.springframework</groupId> <artifactId>spring-context</artifactId> 
+				<version>${version-spring}</version> </dependency> <dependency> <groupId>org.springframework</groupId> 
+				<artifactId>spring-beans</artifactId> <version>${version-spring}</version> 
+				</dependency> <dependency> <groupId>org.springframework</groupId> <artifactId>spring-tx</artifactId> 
+				<version>${version-spring}</version> </dependency> <dependency> <groupId>org.springframework</groupId> 
+				<artifactId>spring-core</artifactId> <version>${version-spring}</version> 
+				</dependency> <dependency> <groupId>org.springframework</groupId> <artifactId>spring-aop</artifactId> 
+				<version>${version-spring}</version> </dependency> <dependency> <groupId>org.springframework</groupId> 
+				<artifactId>spring-expression</artifactId> <version>${version-spring}</version> 
+				</dependency> <dependency> <groupId>org.springframework</groupId> <artifactId>spring-test</artifactId> 
+				<version>${version-spring}</version> </dependency -->
 			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-mongodb</artifactId>
@@ -133,6 +200,23 @@
 				<artifactId>mongo-java-driver</artifactId>
 				<version>${version-mongodb}</version>
 			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>dubbo</artifactId>
+				<version>${version-dubbo}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.zookeeper</groupId>
+				<artifactId>zookeeper</artifactId>
+				<version>${version-zookeeper}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.101tec</groupId>
+				<artifactId>zkclient</artifactId>
+				<version>${version-zkclient}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -148,6 +232,7 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Log relate start -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-ext</artifactId>
@@ -168,5 +253,19 @@
 			<groupId>janino</groupId>
 			<artifactId>janino</artifactId>
 		</dependency>
+		<!-- Log relate end -->
 	</dependencies>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<name>nexus-snapshots</name>
+			<url>http://www.test.plane.com:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>nexus-releases</id>
+			<name>nexus-releases</name>
+			<url>http://www.test.plane.com:8081/nexus/content/repositories/releases/</url>
+		</repository>
+	</distributionManagement>
 </project>

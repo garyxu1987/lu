@@ -11,14 +11,4 @@
 
 	<context:property-placeholder location="classpath:application.properties" />
 	<import resource="classpath:dubbo/dubbo-service.xml" />
-
-	<context:component-scan base-package="com.mbg.lu.data"></context:component-scan>
-
-	<mongo:mongo host="${mongo.host}" port="${mongo.port}">
-	</mongo:mongo>
-
-	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-		<constructor-arg ref="mongo" />
-		<constructor-arg name="databaseName" value="${mongo.databaseName}" />
-	</bean>
 </beans>  

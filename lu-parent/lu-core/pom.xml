@@ -6,13 +6,12 @@
 		<artifactId>lu-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>lu-order</artifactId>
+	<artifactId>lu-core</artifactId>
 
 	<dependencies>
 		<dependency>
-			<groupId>com.mbg.lu</groupId>
-			<artifactId>lu-core</artifactId>
-			<version>${project.parent.version}</version>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
 		</dependency>
 	</dependencies>
 </project>
