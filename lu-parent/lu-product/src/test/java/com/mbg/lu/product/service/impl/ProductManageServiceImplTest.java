@@ -11,12 +11,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.mbg.lu.data.service.IMongoDBService;
 import com.mbg.lu.model.domain.product.Product;
-import com.mbg.lu.model.query.ProductQuery;
+import com.mbg.lu.model.domain.product.query.ProductQuery;
 import com.mbg.lu.product.service.IProductManageService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/applicationContext.xml",
-		"classpath:dubbo-consumer.xml" })
+@ContextConfiguration(locations = { "classpath:spring/applicationContext.xml"})
 public class ProductManageServiceImplTest {
 	@Reference(version = "1.0.0")
 	IProductManageService productManageService;

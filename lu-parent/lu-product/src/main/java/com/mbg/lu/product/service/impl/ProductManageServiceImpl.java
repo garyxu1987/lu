@@ -7,7 +7,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.mbg.lu.data.service.IMongoDBService;
 import com.mbg.lu.model.domain.product.Product;
-import com.mbg.lu.model.query.ProductQuery;
+import com.mbg.lu.model.domain.product.query.ProductQuery;
 import com.mbg.lu.product.service.IProductManageService;
 
 @Service(version = "1.0.0")
@@ -21,13 +21,13 @@ public class ProductManageServiceImpl implements IProductManageService {
 	}
 
 	public Product getProduct(Serializable id) {
-		// TODO Auto-generated method stub
-		return null;
+		ProductQuery query = new ProductQuery();
+		query.setProductId(id);
+		return mongoDBService.findOne(query, Product.class);
 	}
 
 	@Override
 	public List<Product> searchProduct(ProductQuery query) {
-		// TODO Auto-generated method stub
 		return mongoDBService.find(query, Product.class);
 	}
 

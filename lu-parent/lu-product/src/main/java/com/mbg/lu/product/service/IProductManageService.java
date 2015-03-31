@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.mbg.lu.model.domain.product.Product;
-import com.mbg.lu.model.query.ProductQuery;
+import com.mbg.lu.model.domain.product.query.ProductQuery;
 
 public interface IProductManageService {
 

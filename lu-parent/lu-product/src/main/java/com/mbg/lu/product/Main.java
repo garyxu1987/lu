@@ -1,4 +1,4 @@
-package com.mbg.lu.data;
+package com.mbg.lu.product;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

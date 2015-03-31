@@ -13,8 +13,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.mbg.lu.data.service.IMongoDBService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/applicationContext.xml",
-		"classpath:dubbo-consumer.xml" })
+@ContextConfiguration(locations = { "classpath:spring/applicationContext.xml" })
 public class TestMongoDB {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Reference(version = "1.0.0")
