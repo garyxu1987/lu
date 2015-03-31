@@ -10,8 +10,8 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.mbg.lu</groupId>
-			<artifactId>lu-common</artifactId>
-			<version>${version-lu}</version>
+			<artifactId>lu-core</artifactId>
+			<version>${project.parent.version}</version>
 		</dependency>
 	</dependencies>
 </project>

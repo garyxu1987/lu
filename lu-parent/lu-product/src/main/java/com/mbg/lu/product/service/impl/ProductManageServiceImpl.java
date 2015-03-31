@@ -1,18 +1,34 @@
 package com.mbg.lu.product.service.impl;
 
-import com.mbg.lu.product.domain.Product;
+import java.io.Serializable;
+import java.util.List;
+
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.dubbo.config.annotation.Service;
+import com.mbg.lu.data.service.IMongoDBService;
+import com.mbg.lu.model.domain.product.Product;
+import com.mbg.lu.model.query.ProductQuery;
 import com.mbg.lu.product.service.IProductManageService;
 
+@Service(version = "1.0.0")
 public class ProductManageServiceImpl implements IProductManageService {
 
-	public Integer saveProduct(Product product) {
+	@Reference(version = "1.0.0")
+	IMongoDBService mongoDBService;
+
+	public void saveProduct(Product product) {
+		mongoDBService.save(product);
+	}
+
+	public Product getProduct(Serializable id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Product getProduct(Integer id) {
+	@Override
+	public List<Product> searchProduct(ProductQuery query) {
 		// TODO Auto-generated method stub
-		return null;
+		return mongoDBService.find(query, Product.class);
 	}
 
 }

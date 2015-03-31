@@ -4,18 +4,21 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.mbg.lu.data.service.IMongoDBService;
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:spring/applicationContext.xml")
+@ContextConfiguration(locations = { "classpath:spring/applicationContext.xml",
+		"classpath:dubbo-consumer.xml" })
 public class TestMongoDB {
 	Logger logger = LoggerFactory.getLogger(getClass());
-	@Autowired
-	TestMongoDBService mongoDBService;
+	@Reference(version = "1.0.0")
+	IMongoDBService mongoDBService;
 
 	@Test
 	public void testConnect() {
@@ -25,10 +28,9 @@ public class TestMongoDB {
 
 		mongoDBService.save(to);
 
-		System.out.println(mongoDBService
-				.getMongoTemplate()
-				.findOne(new Query(Criteria.where("name").is("n1")),
-						TestObject.class).getName());
+		System.out.println(mongoDBService.findOne(
+				new Query(Criteria.where("name").is("n1")), TestObject.class)
+				.getName());
 	}
 }
 

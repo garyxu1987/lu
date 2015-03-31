@@ -6,13 +6,12 @@
 		<artifactId>lu-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>lu-order</artifactId>
+	<artifactId>lu-model</artifactId>
 
 	<dependencies>
 		<dependency>
-			<groupId>com.mbg.lu</groupId>
-			<artifactId>lu-core</artifactId>
-			<version>${project.parent.version}</version>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
 		</dependency>
 	</dependencies>
 </project>
